@@ -8,8 +8,8 @@ const CharacterCard = (props: ICharacter) => {
         image,
 
     } = props;
-    return <Card key={id} sx={{m:1}} >
-        <div><img src={image} alt={`image-${name}`}/></div>
+    return <Card key={id} sx={{ m: 1 }}  >
+        <img style={{ width: 300, height: 300 }} src={image} alt={`image-${ name }`} />
         <Typography textAlign={'center'} >{name}</Typography>
     </Card>
 };
