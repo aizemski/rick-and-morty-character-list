@@ -2,18 +2,20 @@ import React from "react";
 import { Box, CssBaseline, Paper, Typography } from "@mui/material";
 import { getCharactersPagination } from './utils/requests/characters';
 import { ICharacter } from './utils/types';
+import CharacterCard from './components/ChracterCard';
 
 function App () {
   const [characters, setCharacters] = React.useState<ICharacter[]>([]);
+  const [request,setRequest] = React.useState<string>('');
   React.useEffect(() => {
-    getCharactersPagination(setCharacters)
+    getCharactersPagination(request,setCharacters,setRequest);
   }, [])
   return (
     <div>
       <CssBaseline />
-      <ul>
-        {characters?.map((character) => { return <li>{character.name}</li> })}
-      </ul>
+      <Box bgcolor={'#bcbcbc'} sx={{display:'flex',flexWrap:'wrap',justifyContent:'space-around'}}>
+        {characters?.map((character) => { return <CharacterCard {...character}/> })}
+      </Box>
     </div>
   );
 }
