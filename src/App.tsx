@@ -5,6 +5,9 @@ import { getCharactersPagination } from './utils/requests/characters';
 import { ICharacter, Status } from './utils/types';
 import CharacterCard from './components/ChracterCard';
 import NoResult from './components/NoResults';
+import SearchFromContainer from './components/SearchFormContainer';
+import ChangeNameInput from './components/ChangeNameInput';
+import ChangeStatusInput from './components/ChangeStatusInput';
 
 
 
@@ -41,6 +44,7 @@ function App () {
     resetRequests();
     setStatus(e.target.value as '' | Status)
   }
+  //debounce - sending request after finishing typing
   const debouncedChangeHandler = React.useCallback(
     debounce(onNameChange, 300)
     , []);
@@ -48,17 +52,10 @@ function App () {
   return (
     <div>
       <CssBaseline />
-      <Input type='outlined' aria-label='serach' placeholder='Search' onChange={debouncedChangeHandler} />
-      <RadioGroup
-        defaultValue=""
-        name="radio-buttons-group"
-        onChange={onStatusChange}
-      >
-        <FormControlLabel value="" control={<Radio />} label="Any" />
-        <FormControlLabel value="Alive" control={<Radio />} label="Alive" />
-        <FormControlLabel value="Dead" control={<Radio />} label="Dead" />
-        <FormControlLabel value="Unknown" control={<Radio />} label="Unknown" />
-      </RadioGroup>
+      <SearchFromContainer>
+        <ChangeStatusInput onChange={onStatusChange}/>
+        <ChangeNameInput onChange={debouncedChangeHandler}/>
+      </SearchFromContainer>
       <Box bgcolor={'#bcbcbc'} sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around' }}>
         {characters?.map((character) => { return <CharacterCard {...character} /> })}
         {characters.length===0 && <NoResult/>}
