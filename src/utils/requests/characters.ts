@@ -8,7 +8,7 @@ export const getCharactersPagination = async (
 	setNextRequest: React.Dispatch<React.SetStateAction<string>>,
 	options: RequestOptions
 ) => {
-	//
+	console.log(options)
 	axios
 		.get<ICharacter[]>(
 			url
